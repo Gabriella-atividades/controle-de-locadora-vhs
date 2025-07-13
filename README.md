@@ -76,7 +76,7 @@ Siga os passos abaixo para executar a aplicação.
 
 1.  **Clone o repositório:**
     ```bash
-    git clone 
+    git clone https://github.com/Gabriella-atividades/controle-de-locadora-vhs.git
     cd controle-de-locadora-vhs
     ```
 
