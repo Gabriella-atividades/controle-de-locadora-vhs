@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de VHS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: "Josefin Sans", sans-serif;
+            font-optical-sizing: auto;
+            margin: 40px;
+        }
+
+        .form-container {
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            padding: 10px 15px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Formulário de Cadastro de Fita VHS</h1>
+
+
+    <div class="form-container">
+        <form th:action="@{/vhs}" th:object="${vhs}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <label for="title">Título:</label>
+                <input type="text" id="title" th:field="*{title}" required>
+                <span style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label for="director">Diretor:</label>
+                <input type="text" id="director" th:field="*{director}" required>
+                <span style="color:red" th:if="${#fields.hasErrors('director')}" th:errors="*{director}"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label for="category">Categoria:</label>
+                <select id="category" th:field="*{category}" required>
+                    <option value="">Selecione uma Categoria</option>
+                    <option th:each="cat : ${allCategories}" th:value="${cat.id}" th:text="${cat.name}">Ação</option>
+                </select>
+                <span style="color:red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+            </div>
+            <button type="submit" class="submit-button">Salvar</button>
+        </form>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Listagem de Fitas VHS</title>
+    <style>
+        body {
+            font-family: "Josefin Sans", sans-serif;
+            font-optical-sizing: auto;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+
+        thead {
+            background-color: #f2f2f2;
+        }
+
+
+        .action-button {
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+
+        .add-button {
+            background-color: #934caf;
+        }
+
+
+        .add-button:hover {
+            background-color: #a04588;
+        }
+
+
+        .delete-button {
+            background-color: #f879e3;
+        }
+
+
+        .delete-button:hover {
+            background-color: #da190b;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <h1>Coleção de Fitas VHS</h1>
+
+
+    <a href="/vhs/novo" class="action-button add-button">Nova Fita</a>
+    <a href="/categorias" class="action-button" style="background-color:#ffc107; margin-left: 10px;">
+        Categorias</a>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título da Fita</th>
+                <th>Diretor</th>
+                <th>Categoria</th>
+                <th>Data de Cadastro</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="vhs : ${vhsList}">
+                <td th:text="${vhs.id}">1</td>
+                <td th:text="${vhs.title}">Título do Filme</td>
+                <td th:text="${vhs.director}">Nome do Diretor</td>
+                <td th:text="${vhs.category?.name}">Ação</td>
+                <td th:text="${#temporals.format(vhs.registrationDate, 'dd/MM/yyyy')}">11/07/2025</td>
+                <td th:text="${vhs.status}">DISPONIVEL</td>
+                <td>
+                    <a th:href="@{/vhs/editar/{id}(id=${vhs.id})}" class="action-button"
+                        style="background-color: #007BFF; text-decoration: none;">Editar</a>
+
+
+                    <a th:href="@{/vhs/status/{id}(id=${vhs.id})}" class="action-button"
+                        style="background-color: #1ab4ec; text-decoration: none; margin-left: 5px;">Status</a>
+
+
+                    <form th:action="@{/vhs/excluir/{id}(id=${vhs.id})}" method="post"
+                        style="display:inline; margin-left: 5px;">
+                        <button type="submit" class="action-button delete-button">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+
+
+</html>

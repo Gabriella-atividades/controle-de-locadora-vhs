@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Alterar Status da Fita</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: "Josefin Sans", sans-serif;
+            font-optical-sizing: auto;
+            margin: 40px;
+        }
+
+        .form-container {
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            padding: 10px 15px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Alterar Status da Fita</h1>
+    <h3 th:text="'Fita: ' + ${vhs.title}"></h3>
+    <p><a th:href="@{/vhs}">Cancelar e Voltar</a></p>
+
+
+    <div class="form-container">
+        <form th:action="@{/vhs/status}" th:object="${vhs}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{title}" />
+            <input type="hidden" th:field="*{director}" />
+            <input type="hidden" th:field="*{category}" />
+            <input type="hidden" th:field="*{registrationDate}" />
+
+
+            <div class="form-group">
+                <label for="status">Novo Status:</label>
+                <select id="status" th:field="*{status}" required>
+                    <option th:each="s : ${T(br.edu.ifpr.controle_de_locadora_vhs.entidades.TapeStatus).values()}"
+                        th:value="${s}" th:text="${s}">
+                    </option>
+                </select>
+            </div>
+            <button type="submit" class="submit-button">Atualizar Status</button>
+        </form>
+    </div>
+</body>
+
+</html>
